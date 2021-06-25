@@ -1,5 +1,5 @@
 const getProduct = ()=>
-fetch('http://localhost:5000/api/getProduct?productId=1')
+fetch('http://localhost:5000/api/getProduct?productId='+window.location.href.split('id=')[1])
 .then(response=>response.json())
 .then(data => {
     console.log(data)
@@ -10,6 +10,7 @@ fetch('http://localhost:5000/api/getProduct?productId=1')
     document.getElementById("description").innerText = data.description;
     document.getElementById("image").src = data.image;
     document.getElementById("price").innerText = data.price;
+
     
 }
     );
@@ -17,5 +18,3 @@ fetch('http://localhost:5000/api/getProduct?productId=1')
     
 
 getProduct()
-
-document.get
