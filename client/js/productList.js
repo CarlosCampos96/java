@@ -12,21 +12,21 @@ let sizesToFilter = []
 const constructor = (a) => {
     productSection.innerHTML = ''
 
-    for(i=0; i<a;i++){
+    for (i = 0; i < a; i++) {
         let cardProduct = document.createElement('a')
         cardProduct.className = 'product-card col-6 col-d-4'
         cardProduct.href = `product.html?id=${productList[i]['id']}`
         cardProduct.title = 'View Product'
 
-        let cardProductdetail = 
-        `<div class="product-card-image">
+        let cardProductdetail =
+            `<div class="product-card-image">
             <img class="imgfit" src="${productList[i]['image']}">
         </div>
         <p class="margintophalf marginbottomnone">${productList[i]['name']}</p>
-        <p class="gray marginnone">${productList[i]['category'].map (i => category[i-1])}</p>
+        <p class="gray marginnone">${productList[i]['category'].map(i => category[i - 1])}</p>
         <p class="secondary marginnone">${productList[i]['price']}</p>`
 
-        cardProduct.innerHTML= cardProductdetail
+        cardProduct.innerHTML = cardProductdetail
         productSection.appendChild(cardProduct)
     }
     let loadMore = document.createElement('div')
@@ -37,7 +37,7 @@ const constructor = (a) => {
     <i class="icn-reload"></i>
     Load More
     </div>`
-    loadMore.innerHTML= loadMoredetail
+    loadMore.innerHTML = loadMoredetail
     productSection.appendChild(loadMore)
 }
 
@@ -46,46 +46,46 @@ const refreshList = () => {
     let urlAPI = `/api/getProductsList?nProducts=${numberOfProduct}&sortBy=${sortBy}`
     productSection.innerHTML = ''
     fetch(urlAPI)
-    .then(resp => resp.json())
-    .then(({ data }) => { 
-        productList = data
-        constructor(productList.length)
+        .then(resp => resp.json())
+        .then(({ data }) => {
+            productList = data
+            constructor(productList.length)
 
-        if(categoriesToFilter.length > 0) {
-            productList = productList.filter(product => 
-                product.category.some(categoryId => 
-                    categoriesToFilter.indexOf(categoryId) !== -1))
-                    console.log(productList);
-                    constructor(productList.length)
-        }
+            if (categoriesToFilter.length > 0) {
+                productList = productList.filter(product =>
+                    product.category.some(categoryId =>
+                        categoriesToFilter.indexOf(categoryId) !== -1))
+                console.log(productList);
+                constructor(productList.length)
+            }
 
 
-        for(i = 0; i < productList.length;i++){
-            let  sizesAvailable = []
-            Object.keys(productList[i].sizes).forEach(key => {
-                if (productList[i].sizes[key] > 0) {
-                    sizesAvailable.push(parseInt(key))
-                    //console.log(sizesAvailable)
-                    productList[i].sizesAvailable = sizesAvailable //assign array to object
-                    //console.log(productList[i].sizesAvailable)
-                }
-                return productList[i]
-            })
-            //console.log('final debug do Id:'+ productList[i].id + ' ' + productList[i].sizesAvailable)
-        } 
+            for (i = 0; i < productList.length; i++) {
+                let sizesAvailable = []
+                Object.keys(productList[i].sizes).forEach(key => {
+                    if (productList[i].sizes[key] > 0) {
+                        sizesAvailable.push(parseInt(key))
+                        //console.log(sizesAvailable)
+                        productList[i].sizesAvailable = sizesAvailable //assign array to object
+                        //console.log(productList[i].sizesAvailable)
+                    }
+                    return productList[i]
+                })
+                //console.log('final debug do Id:'+ productList[i].id + ' ' + productList[i].sizesAvailable)
+            }
 
-        if(sizesToFilter.length > 0) {
-            productList = productList.filter(product => 
-                product.sizesAvailable.some(sizeId => 
-                    sizesToFilter.indexOf(sizeId) !== -1))
-                    console.log(productList);
-                    constructor(productList.length)
-                    
-            return productList
-        }
+            if (sizesToFilter.length > 0) {
+                productList = productList.filter(product =>
+                    product.sizesAvailable.some(sizeId =>
+                        sizesToFilter.indexOf(sizeId) !== -1))
+                console.log(productList);
+                constructor(productList.length)
 
-        //return productList    
-    })   
+                return productList
+            }
+
+            //return productList    
+        })
     //return productList         
 }
 // EXECUTE - Filters PriceList
@@ -104,18 +104,18 @@ document.addEventListener("DOMContentLoaded", () => {
     catFilters.forEach((li, i) => {
         li.addEventListener('click', () => {
 
-            const categoryId = i+1;
+            const categoryId = i + 1;
             console.log(categoryId)
-            if(categoriesToFilter.indexOf(categoryId) === -1) {
+            if (categoriesToFilter.indexOf(categoryId) === -1) {
                 categoriesToFilter.push(categoryId);
                 li.children[0].style.fontWeight = '700'
 
 
             } else {
-                categoriesToFilter = categoriesToFilter.filter( id => id !== categoryId)
+                categoriesToFilter = categoriesToFilter.filter(id => id !== categoryId)
                 li.children[0].removeAttribute('style')
             }
-        refreshList()
+            refreshList()
         })
     })
 
@@ -124,26 +124,20 @@ document.addEventListener("DOMContentLoaded", () => {
     sizeFilters.forEach((button, i) => {
         button.addEventListener('click', () => {
 
-            const sizeId = i+1;
+            const sizeId = i + 1;
             console.log(sizeId)
-            if(sizesToFilter.indexOf(sizeId) === -1) {
+            if (sizesToFilter.indexOf(sizeId) === -1) {
                 sizesToFilter.push(sizeId);
                 button.style = 'border-color:darkgrey; font-weight:700'
-            } 
+            }
             else {
-                sizesToFilter = sizesToFilter.filter( id => id !== sizeId)
+                sizesToFilter = sizesToFilter.filter(id => id !== sizeId)
                 button.removeAttribute('style')
             }
-        refreshList()
+            refreshList()
         })
     })
 
     // LoadMore
+
 })
-
-
-
-
-
-
-
