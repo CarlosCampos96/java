@@ -12,7 +12,7 @@
 * Sizes available should match the response.
 * Stars rating should be rounded (2.5 should display 3 full stars)
 
-## Listing page (1/3)
+## Listing page (2/3)
 
 * [Route](https://edit-shop-api.herokuapp.com//productList.html)
 * Apply sortBy, category and sizes.
@@ -30,7 +30,7 @@
     * 3 - pants
     * 4 - jackets
 
-## Improvements (1/3)
+## Improvements (3/3)
 
 * When i filter on the listing page (categories or sizes) i should highlight the selected values
 * Support multiple filters applied
