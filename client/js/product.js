@@ -1,5 +1,5 @@
 const getProduct = () =>
-    fetch('http://localhost:5000/api/getProduct?productId=' + window.location.href.split('id=')[1])
+    fetch('/api/getProduct?productId=' + window.location.href.split('id=')[1])
         .then(response => response.json())
         .then(data => {
             console.log(data)
@@ -20,14 +20,11 @@ const getProduct = () =>
             }
             nodes[nodes.length - 1].innerText =`${score} of 5`;
 
-            const sizeBtns = document.querySelectorAll(".sizeBtns > button");
-            Object.keys(sizes).forEach(x=>{
+            const sizeBtns = document.querySelectorAll(".sizebtns > button");
+            Object.keys(data.sizes).forEach(x=>{
                 sizeBtns[Number(x)-1].disabled = false
             });
-
-
-        }
-        );
+        });
 
 
 
